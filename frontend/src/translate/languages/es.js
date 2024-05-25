@@ -170,8 +170,8 @@ const messages = {
       },
       queueModal: {
         title: {
-          add: "Agregar fila",
-          edit: "Editar fila",
+          add: "Agregar cola",
+          edit: "Editar cola",
         },
         form: {
           name: "Nombre",
@@ -333,7 +333,7 @@ const messages = {
           tickets: "Atenciones",
           quickMessages: "Respuestas Rápidas",
           contacts: "Contactos",
-          queues: "Filas y Chatbot",
+          queues: "Colas y Chatbot",
           tags: "Etiquetas",
           administration: "Administración",
           service: "Atención",
@@ -400,10 +400,10 @@ const messages = {
         },
       },
       tagsKanban: {
-        title: "Lanes",
+        title: "Carril",
         laneDefault: "En abierto",
         confirmationModal: {
-          deleteTitle: "¿Estás seguro de que quieres eliminar esta Lane?",
+          deleteTitle: "¿Estás seguro de que quieres eliminar este carril?",
           deleteMessage: "Esta acción no se puede deshacer.",
         },
         table: {
