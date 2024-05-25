@@ -359,7 +359,7 @@ function Chat(props) {
                 color="primary"
                 variant="contained"
               >
-                Nova
+                Nueva
               </Button>
             </div>
         
