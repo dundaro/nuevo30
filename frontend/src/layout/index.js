@@ -275,7 +275,7 @@ const LoggedInLayout = ({ children, themeToggle }) => {
 
     const onCompanyAuthLayout = (data) => {
       if (data.user.id === +userId) {
-        toastError("Han accedido a su cuenta desde otro copmutador.");
+        toastError("Han accedido a su cuenta desde otro computador.");
         setTimeout(() => {
           localStorage.clear();
           window.location.reload();
