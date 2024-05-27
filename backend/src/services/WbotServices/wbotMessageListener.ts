@@ -295,7 +295,7 @@ const downloadMedia = async (msg: proto.IWebMessageInfo) => {
         {setTimeout(resolve, 1000 * contDownload * 2)}
       );
       logger.warn(
-        `>>>> erro ${contDownload} de baixar o arquivo ${msg?.key.id}`
+        `>>>> error ${contDownload} para descargar el archivo ${msg?.key.id}`
       );
     }
   }
@@ -742,7 +742,7 @@ const sendMenu = async (
     });
     buttons.push({
       buttonId: "#",
-      buttonText: { displayText: "Voltar Menu Inicial" },
+      buttonText: { displayText: "Volver al Menu Inicial" },
       type: 4
     });
 
@@ -766,7 +766,7 @@ const sendMenu = async (
     currentOption.options.forEach((option) => {
       options += `*[ ${option.option} ]* - ${option.title}\n`;
     });
-    options += "\n*[ # ]* - Voltar Menu Inicial";
+    options += "\n*[ # ]* - Volver al Menu Inicial";
 
     const textMessage = {
       text: formatBody(`\u200e${message}\n\n${options}`, ticket.contact),
@@ -838,8 +838,8 @@ const startQueue = async (wbot: Session, ticket: Ticket, queue: Queue) => {
         !isNil(currentSchedule) &&
         (!currentSchedule || currentSchedule.inActivity === false)
       ) {
-        const outOfHoursMessage = queue.outOfHoursMessage.trim() || "Estamos fora do horário de expediente";
-        const body = formatBody(`${outOfHoursMessage}\n\n*[ # ]* - Voltar ao Menu Principal`, ticket.contact);
+        const outOfHoursMessage = queue.outOfHoursMessage.trim() || "Estamos fuera del horario de atencion";
+        const body = formatBody(`${outOfHoursMessage}\n\n*[ # ]* - Volver al Menu Principal`, ticket.contact);
         const sentMessage = await wbot.sendMessage(
           `${contact.number}@${ticket.isGroup ? "g.us" : "s.whatsapp.net"}`, {
           text: body,
@@ -925,7 +925,7 @@ const verifyQueue = async (
 
     const listMessage = {
       text: formatBody(`\u200e${greetingMessage}`, contact),
-      buttonText: "Escolha uma opção",
+      buttonText: "Escoja una opcion ",
       sections
     };
 
@@ -1051,7 +1051,7 @@ export const handleRating = async (
       rate: finalRate,
     });
     
-    const complationMessage = whatsapp.complationMessage.trim() || "Atendimento finalizado";
+    const complationMessage = whatsapp.complationMessage.trim() || "Atencion finalizada";
     const body = formatBody(`\u200e${complationMessage}`, ticket.contact);
     await SendWhatsAppMessage({ body, ticket });
 
@@ -1310,7 +1310,7 @@ const handleMessage = async (
       order: [["createdAt", "DESC"]],
     });
 
-    const complationMessage = whatsapp.complationMessage.trim() || "Atendimento finalizado";
+    const complationMessage = whatsapp.complationMessage.trim() || "Atencion finalizada";
 
     if (unreadMessages === 0 && complationMessage && formatBody(complationMessage, contact).trim().toLowerCase() === lastMessage?.body.trim().toLowerCase()) {
       return;
@@ -1349,14 +1349,14 @@ const handleMessage = async (
         // dev Ricardo: insistir a responder avaliação
         const rate = Number(bodyMessage);
 
-        if ((ticket?.lastMessage.includes("_Insatisfeito_") || ticket?.lastMessage.includes("Por favor avalie nosso atendimento.")) && (!Number.isFinite(rate))) {
+        if ((ticket?.lastMessage.includes("_Insatisfeito_") || ticket?.lastMessage.includes("Por favor califique nuestra atencion.")) && (!Number.isFinite(rate))) {
           const debouncedSentMessage = debounce(
             async () => {
               await wbot.sendMessage(
                 `${ticket.contact.number}@${ticket.isGroup ? "g.us" : "s.whatsapp.net"
                 }`,
                 {
-                  text: "Por favor avalie nosso atendimento."
+                  text: "Por favor califique nuestra atencion."
                 }
               );
             },
@@ -1408,7 +1408,7 @@ const handleMessage = async (
           !isNil(currentSchedule) &&
           (!currentSchedule || currentSchedule.inActivity === false)
         ) {
-          const body = `${whatsapp.outOfHoursMessage.trim() || "Estamos fora do horário de expediente"}`;
+          const body = `${whatsapp.outOfHoursMessage.trim() || "Estamos fuera de horario de atencion"}`;
 
           const debouncedSentMessage = debounce(
             async () => {
@@ -1460,7 +1460,7 @@ const handleMessage = async (
             const endTime = moment(schedule.endTime, "HH:mm");
 
             if (now.isBefore(startTime) || now.isAfter(endTime)) {
-              const outOfHoursMessage = queue.outOfHoursMessage?.trim() || "Estamos fora do horário de expediente";
+              const outOfHoursMessage = queue.outOfHoursMessage?.trim() || "Estamos fuera de horario de atencion";
               const body = `${outOfHoursMessage}`;
               const debouncedSentMessage = debounce(
                 async () => {
@@ -1547,7 +1547,7 @@ const handleMessage = async (
           const endTime = moment(schedule.endTime, "HH:mm");
 
           if (now.isBefore(startTime) || now.isAfter(endTime)) {
-            const outOfHoursMessage = queue.outOfHoursMessage?.trim() || "Estamos fora do horário de expediente";
+            const outOfHoursMessage = queue.outOfHoursMessage?.trim() || "Estamos fuera del horario de atencion";
             const body = outOfHoursMessage;
             const debouncedSentMessage = debounce(
               async () => {
@@ -1670,7 +1670,7 @@ const verifyRecentCampaign = async (
   if (!message.key.fromMe) {
     const number = message.key.remoteJid.replace(/\D/g, "");
     const campaigns = await Campaign.findAll({
-      where: { companyId, status: "EM_ANDAMENTO", confirmation: true },
+      where: { companyId, status: "EN_PROCESO", confirmation: true },
     });
     if (campaigns) {
       const ids = campaigns.map((c) => c.id);
@@ -1775,7 +1775,7 @@ export const sendMessageImage = async (
     sentMessage = await wbot.sendMessage(
       `${contact.number}@${ticket.isGroup ? "g.us" : "s.whatsapp.net"}`,
       {
-        text: formatBody("Não consegui enviar o PDF, tente novamente!", contact)
+        text: formatBody("No se pudo enviar el PDF, intente nuevamente!", contact)
       }
     );
   }
@@ -1803,7 +1803,7 @@ export const sendMessageLink = async (
   } catch (error) {
     sentMessage = await wbot.sendMessage(
       `${contact.number}@${ticket.isGroup ? "g.us" : "s.whatsapp.net"}`, {
-      text: formatBody("Não consegui enviar o PDF, tente novamente!", contact)
+      text: formatBody("No se puede enviar el PDF, pruebe nuevamente!", contact)
     }
     );
   }
