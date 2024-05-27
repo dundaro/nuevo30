@@ -165,7 +165,7 @@ export const getBodyMessage = (msg: proto.IWebMessageInfo): string | null => {
       logger.warn(`#### Nao achou o type 152: ${type} \n ${JSON.stringify(msg)}`);
       Sentry.setExtra("Mensagem", { BodyMsg: msg.message, msg, type });
       Sentry.captureException(
-        new Error("Novo Tipo de Mensagem em getTypeMessage")
+        new Error("Nuevo Tipo de Mensaje en getTypeMessage")
       );
     }
     return types[type];
