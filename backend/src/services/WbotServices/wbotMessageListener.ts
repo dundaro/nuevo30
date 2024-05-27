@@ -667,8 +667,8 @@ const isValidMsg = (msg: proto.IWebMessageInfo): boolean => {
     if (!ifType) {
       logger.warn(`#### Nao achou o type em isValidMsg: ${msgType}
 ${JSON.stringify(msg?.message)}`);
-      Sentry.setExtra("Mensagem", { BodyMsg: msg.message, msg, msgType });
-      Sentry.captureException(new Error("Novo Tipo de Mensagem em isValidMsg"));
+      Sentry.setExtra("Mensage", { BodyMsg: msg.message, msg, msgType });
+      Sentry.captureException(new Error("Nuevo Tipo de Mensage en isValidMsg"));
     }
 
     return !!ifType;
@@ -708,7 +708,7 @@ const sendMenu = async (
       });
     });
     sectionsRows.push({
-      title: "Voltar Menu Inicial",
+      title: "Volver al Menu Inicial",
       rowId: "#"
     });
     const sections = [
@@ -719,7 +719,7 @@ const sendMenu = async (
 
     const listMessage = {
       text: formatBody(`\u200e${message}`, ticket.contact),
-      buttonText: "Escolha uma opção",
+      buttonText: "Escoja una opcion",
       sections
     };
 
